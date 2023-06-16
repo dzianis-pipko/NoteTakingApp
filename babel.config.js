@@ -10,6 +10,8 @@ module.exports = {
           tests: ['./tests/'],
           '@components': './src/components',
           '@screens': './src/screens',
+          '@types': 'src/types',
+          '@services': 'src/services',
         },
       },
     ],

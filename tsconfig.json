@@ -35,6 +35,8 @@
       "tests": ["tests/*"],
       "@components/*": ["src/components/*"],
       "@screens/*": ["src/screens/*"],
+      "@types/*": ["src/types/*"],
+      "@services/*": ["src/ services/*"],
     },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     "typeRoots": [

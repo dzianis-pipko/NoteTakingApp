@@ -1,37 +1,30 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {NoteTakingInput} from 'components/NoteTakingInput';
-import {HomeScreen} from 'screens';
+import React from 'react';
+import {EditNoteScreen, HomeScreen} from 'screens';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {RootStackParamList} from './types';
+import {NewNoteButton} from 'components';
+import {StatusBar} from 'react-native';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
-  const [shouldCreateNewNote, setShouldCreateNewNote] =
-    useState<boolean>(false);
-
-  const saveNote = async (text: string) => {
-    await AsyncStorage.setItem('note', text);
-    setShouldCreateNewNote(false);
-  };
-
   return (
-    <View style={styles.container}>
-      <Text>Title</Text>
-
-      {shouldCreateNewNote ? (
-        <NoteTakingInput saveNote={saveNote} />
-      ) : (
-        <HomeScreen tooleNewNote={setShouldCreateNewNote} />
-      )}
-    </View>
+    <NavigationContainer>
+      <StatusBar />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerTitle: 'All notes',
+            headerRight: () => <NewNoteButton />,
+          }}
+        />
+        <Stack.Screen name="EditNote" component={EditNoteScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
